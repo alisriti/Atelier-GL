@@ -6,5 +6,7 @@ namespace Produits.Managers.Storages
     public interface IProductStore
     {
         public List<Product> GetProducts();
+
+        public Product GetProductById(int Id);
     }
 }
