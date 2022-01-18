@@ -1,6 +1,7 @@
 ﻿@page "/products"
 @using System.Data
 @using Produits.Managers.Storages
+@using Produits.Models.Products
 @inject IProductStore productStore
 <h3> liste des Produits</h3>
 <button class="btn btn-primary" @onclick="loadProduits">Liste des produits</button>
@@ -15,13 +16,13 @@
             <th>Quantité</th>
             <th>Prix</th>
         </tr>
-        @foreach (DataRow row in tableProduits.Rows)
+        @foreach (Product product in products)
         {
             <tr>
-                <td>@row["Id"]</td>
-                <td>@row["Designation"]</td>
-                <td>@row["Quantite"]</td>
-                <td>@row["Prix"]</td>
+                <td>@product.Id</td>
+                <td>@product.Designation</td>
+                <td>@product.Quantite</td>
+                <td>@product.Prix</td>
             </tr>
         }
     </table>
@@ -29,11 +30,11 @@
 
 @code {
     private int nombre = 0;
-    DataTable tableProduits = new DataTable();
+    List<Product> products = new List<Product>();
 
     private void loadProduits()
     {
-        tableProduits = productStore.GetProducts();
-        nombre = tableProduits.Rows.Count;
+        products = productStore.GetProducts();
+        nombre = products.Count;
     }
 }
