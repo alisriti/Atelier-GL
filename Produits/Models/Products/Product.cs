@@ -6,5 +6,6 @@
         public string Designation { get; set; }
         public int Quantite { get; set; }
         public int Prix { get; set; }
+        public int Valeur => Quantite * Prix;
     }
 }
