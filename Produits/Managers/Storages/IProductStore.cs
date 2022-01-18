@@ -1,9 +1,10 @@
-﻿using System.Data;
+﻿using Produits.Models.Products;
+using System.Collections.Generic;
 
 namespace Produits.Managers.Storages
 {
     public interface IProductStore
     {
-        public DataTable GetProducts();
+        public List<Product> GetProducts();
     }
 }

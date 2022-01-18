@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Produits.Models.Products;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -13,7 +15,7 @@ namespace Produits.Managers.Storages
             this.configuration = configuration;
         }
 
-        public DataTable GetProducts()
+        public List<Product> GetProducts()
         {
             DataTable tableProduits = new DataTable();
             string connectionString = configuration.GetConnectionString("depinfo");
@@ -25,7 +27,20 @@ namespace Produits.Managers.Storages
 
             connection.Open();
             da.Fill(tableProduits);
-            return tableProduits;
+
+            List<Product> products = new List<Product>();
+            foreach (DataRow row in tableProduits.Rows)
+            {
+                products.Add(new Product()
+                {
+                    Id = (int)row["Id"],
+                    Designation = (string)row["Designation"],
+                    Quantite = (int)row["Quantite"],
+                    Prix = (int)row["Prix"]
+                });
+            }
+
+            return products;
         }
     }
 }
