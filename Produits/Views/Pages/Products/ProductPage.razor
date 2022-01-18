@@ -1,0 +1,51 @@
+﻿@page "/produits/{Id}"
+@using Produits.Managers.Storages
+@using Produits.Models.Products
+@inject IProductStore productStore
+<h3>Fiche Produit</h3>
+@if (produit == null)
+{
+    <h3 class="text-warning">Aucun produit</h3>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <td>ID</td>
+            <td>@produit.Id.ToString()</td>
+        </tr>
+        <tr>
+            <td>Designation</td>
+            <td>@produit.Designation</td>
+        </tr>
+        <tr>
+            <td>Quantite</td>
+            <td>@produit.Quantite.ToString()</td>
+        </tr>
+        <tr>
+            <td>Prix</td>
+            <td>@produit.Prix.ToString()</td>
+        </tr>
+    </table>
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private Product produit;
+    protected override void OnInitialized()
+    {
+        try
+        {
+            int i = Convert.ToInt16(Id);
+            produit = productStore.GetProductById(i);
+
+        }
+        catch (Exception e)
+        {
+            produit = null;
+        }
+    }
+
+}
