@@ -1,0 +1,49 @@
+﻿@page "/produits"
+@using Microsoft.Extensions.Configuration
+@using System.Data
+@using System.Data.SqlClient
+@inject IConfiguration configuration
+<h3>ProduitsPage</h3>
+<h3> liste des Produits</h3>
+<button class="btn btn-primary" @onclick="loadProduits">Liste des produits</button>
+<div>
+    <label>@nombre produits trouvés</label>
+</div>
+<div>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Désignation</th>
+            <th>Quantité</th>
+            <th>Prix</th>
+        </tr>
+        @foreach (DataRow row in tableProduits.Rows)
+        {
+            <tr>
+                <td>@row["Id"]</td>
+                <td>@row["Designation"]</td>
+                <td>@row["Quantite"]</td>
+                <td>@row["Prix"]</td>
+            </tr>
+        }
+    </table>
+</div>
+
+@code {
+    private int nombre = 0;
+    DataTable tableProduits = new DataTable();
+
+    private void loadProduits()
+    {
+        string connectionString = configuration.GetConnectionString("depinfo");
+        connectionString = configuration.GetConnectionString("depinfo");
+        using var connection = new SqlConnection(connectionString);
+        SqlCommand cmd = new SqlCommand("SELECT * FROM PRODUITS", connection);
+
+        SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+        connection.Open();
+        da.Fill(tableProduits);
+        nombre = tableProduits.Rows.Count;
+    }
+}
