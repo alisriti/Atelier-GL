@@ -11,7 +11,6 @@
 <div>
     <table class="table">
         <tr>
-            <th>Id</th>
             <th>Désignation</th>
             <th>Quantité</th>
             <th>Prix</th>
@@ -19,8 +18,10 @@
         @foreach (Product product in products)
         {
             <tr>
-                <td>@product.Id</td>
-                <td>@product.Designation</td>
+                <td>
+                    <a href="/products/@product.Id">@product.Designation</a>
+                    @product.Id
+                </td>
                 <td>@product.Quantite</td>
                 <td>@product.Prix</td>
             </tr>
