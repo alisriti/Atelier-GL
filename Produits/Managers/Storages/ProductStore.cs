@@ -31,13 +31,7 @@ namespace Produits.Managers.Storages
             List<Product> products = new List<Product>();
             foreach (DataRow row in tableProduits.Rows)
             {
-                products.Add(new Product()
-                {
-                    Id = (int)row["Id"],
-                    Designation = (string)row["Designation"],
-                    Quantite = (int)row["Quantite"],
-                    Prix = (int)row["Prix"]
-                });
+                products.Add(row.ToProduct());
             }
 
             return products;
