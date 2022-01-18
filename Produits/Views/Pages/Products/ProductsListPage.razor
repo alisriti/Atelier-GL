@@ -1,0 +1,39 @@
+﻿@page "/products"
+@using System.Data
+@using Produits.Managers.Storages
+@inject IProductStore productStore
+<h3> liste des Produits</h3>
+<button class="btn btn-primary" @onclick="loadProduits">Liste des produits</button>
+<div>
+    <label>@nombre produits trouvés</label>
+</div>
+<div>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Désignation</th>
+            <th>Quantité</th>
+            <th>Prix</th>
+        </tr>
+        @foreach (DataRow row in tableProduits.Rows)
+        {
+            <tr>
+                <td>@row["Id"]</td>
+                <td>@row["Designation"]</td>
+                <td>@row["Quantite"]</td>
+                <td>@row["Prix"]</td>
+            </tr>
+        }
+    </table>
+</div>
+
+@code {
+    private int nombre = 0;
+    DataTable tableProduits = new DataTable();
+
+    private void loadProduits()
+    {
+        tableProduits = productStore.GetProducts();
+        nombre = tableProduits.Rows.Count;
+    }
+}
