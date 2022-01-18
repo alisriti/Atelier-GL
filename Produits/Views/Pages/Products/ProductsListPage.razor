@@ -14,6 +14,7 @@
             <th>Désignation</th>
             <th>Quantité</th>
             <th>Prix</th>
+            <th>Valeur</th>
         </tr>
         @foreach (Product product in products)
         {
@@ -23,6 +24,7 @@
                 </td>
                 <td>@product.Quantite</td>
                 <td>@product.Prix</td>
+                <td>@product.Valeur</td>
             </tr>
         }
     </table>
