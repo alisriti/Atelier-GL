@@ -28,13 +28,7 @@ namespace Produits.Managers.Storages
             connection.Open();
             da.Fill(tableProduits);
 
-            List<Product> products = new List<Product>();
-            foreach (DataRow row in tableProduits.Rows)
-            {
-                products.Add(row.ToProduct());
-            }
-
-            return products;
+            return tableProduits.ToProductsList();
         }
 
         public Product GetProductById(int Id)

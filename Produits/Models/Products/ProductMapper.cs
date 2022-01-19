@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace Produits.Models.Products
 {
@@ -14,5 +16,8 @@ namespace Produits.Models.Products
                 Prix = (int)row["Prix"]
             };
         }
+
+        public static List<Product> ToProductsList(this DataTable table) =>
+            (from DataRow row in table.Rows select row.ToProduct()).ToList();
     }
 }
